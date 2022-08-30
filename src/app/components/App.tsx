@@ -11,8 +11,18 @@ const App = ({}) => {
         textbox.current = element;
     }, []);
 
-    const onCreate = () => {
+    const onCreate = async () => {
         const count = parseInt(textbox.current.value, 10);
+
+        const fetchUrl = 'https://joeschmoe.io/api/v1/random';
+
+        // const fetchUrl = "https://www.rijksmuseum.nl/api/nl/collection?key=m6fzmvxx&involvedMaker=Rembrandt+van+Rijn"
+
+        let res = await fetch(fetchUrl);
+        let text = await res.json();
+
+        console.log(text);
+
         parent.postMessage({pluginMessage: {type: 'create-rectangles', count}}, '*');
     };
 
@@ -32,8 +42,7 @@ const App = ({}) => {
 
     return (
         <div>
-            <img src={require('../assets/logo.svg')} />
-            <h2>Rectangle Creator</h2>
+            <h2>Joe Schmoe</h2>
             <p>
                 Count: <input ref={countRef} />
             </p>
